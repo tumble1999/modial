@@ -28,13 +28,13 @@ var BSModal = (function () {
 	"use strict";
 	var showingModel;
 	const backdrop = document.createElement("div");
-	backdrop.classList.add("modal-backdrop fade show");
+	backdrop.classList.add("modal-backdrop", "fade", "show");
 	backdrop.addEventListener("click",()=>{
 
 	})
 
 	let modalTemplate = document.createElement("div");
-	modalTemplate.classList.add("modal fade");
+	modalTemplate.classList.add("modal", "fade");
 	modalTemplate.setAttribute("tabindex", "-1")
 	modalTemplate.setAttribute("role", "dialogue")
 	modalTemplate.setAttribute("aria-hidden", "true")
