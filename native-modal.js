@@ -147,7 +147,6 @@ aria-hidden="false" style="display: block;">
 		}
 
 		handleClick(e) {
-			console.log("hi");
 			var clickTarget = e.target;
 			var data = clickTarget.getAttribute("data-dismiss") === "modal";
 			var parent = clickTarget.closest('[data-dismiss="modal"]');
