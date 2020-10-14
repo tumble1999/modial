@@ -6,7 +6,18 @@
 
 ```javascript
 var modal = new BSModal();
-modal.setContent("Header","Content","Footer");
+
+// or
+modal.setContent("Body");
+// or
+modal.setContent("Header","Body","Footer");
+//or
+modal.setContent({
+header:"Header",
+body:"Body",
+footer:"Footer"
+});
+
 modal.show()
 modal.hide()
 ```
