@@ -116,7 +116,7 @@ aria-hidden="false" style="display: block;">
 			//onTransition(backdrop).then(_ => {
 				modal.classList.add("show");
 				modal.setAttribute("aria-hidden", "false");
-				setupEvents(modal, 1);
+				setupEvents(this, 1);
 			//});
 		}
 
