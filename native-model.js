@@ -73,6 +73,7 @@ aria-hidden="false" style="display: block;">
 	class BSModal {
 		constructor() {
 			this.modal = modalTemplate.cloneNode(true);
+			document.body.insertAdjacentElement("afterbegin",this.modal)
 		}
 
 		setContent(options = { header, body, footer }) {
