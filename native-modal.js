@@ -75,9 +75,9 @@ var BSModal = (function () {
 		backdrop.classList.remove("show")
 	}
 
-	function setupEvents(modal, action) {
+	function setupEvents(element, action) {
 		var action = action ? "addEventListener" : "removeEventListener";
-		modal.modal[action]("click", modal.handleClick.bind(modal));
+		element[action]("click", element.modal.handleClick.bind(element.modal));
 	}
 
 	/*
@@ -90,7 +90,7 @@ aria-hidden="false" style="display: block;">
 			this.options = options;
 			this.modal = modalTemplate.cloneNode(true);
 			if (options.fade) this.modal.classList.add("fade");
-			//this.modal.modal = this;
+			this.modal.modal = this;
 			document.body.insertAdjacentElement("afterbegin", this.modal);
 		}
 
@@ -111,13 +111,13 @@ aria-hidden="false" style="display: block;">
 		show() {
 			if (isModalShowing() && this.modal.classList.contains("show")) return;
 			var modal = this.modal
-			modal.style.display = "block";
 			prepareForModal()
-			onTransition(backdrop).then(_ => {
+			modal.style.display = "block";
+			//onTransition(backdrop).then(_ => {
 				modal.classList.add("show");
 				modal.setAttribute("aria-hidden", "false");
 				setupEvents(modal, 1);
-			});
+			//});
 		}
 
 		hide() {
