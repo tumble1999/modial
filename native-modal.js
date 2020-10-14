@@ -61,11 +61,10 @@ var BSModal = (function () {
 		});
 	}
 
-	async function prepareForModal() {
+	function prepareForModal() {
 		document.body.classList.add("modal-open");
 		document.body.appendChild(backdrop);
 		backdrop.classList.add("show")
-		return await onTransition(backdrop);
 	}
 
 	function cleanModalPreperarions() {
@@ -113,7 +112,8 @@ aria-hidden="false" style="display: block;">
 			if (isModalShowing() && this.modal.classList.contains("show")) return;
 			var modal = this.modal
 			modal.style.display = "block";
-			prepareForModal().then(_ => {
+			prepareForModal()
+			onTransition(backdrop).then(_ => {
 				modal.classList.add("show");
 				modal.setAttribute("aria-hidden", "false");
 				setupEvents(modal, 1);
