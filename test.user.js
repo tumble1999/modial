@@ -1,13 +1,48 @@
 // ==UserScript==
-// @name         New Userscript
-// @namespace    http://tampermonkey.net/
+// @name         Test
+// @namespace    http://boxcrittersmods.ga
 // @version      0.1
-// @description  try to take over the world!
-// @author       You
-// @match        http://*/*
+// @description  Test
+// @author       TumbleGamer
+// @require      https://github.com/SArpnt/joinFunction/raw/master/script.js
+// @require      https://github.com/SArpnt/EventHandler/raw/master/script.js
+// @require      https://github.com/SArpnt/cardboard/raw/master/script.user.js
+// @require      https://github.com/tumble1999/mod-utils/raw/master/mod-utils.js
+// @require      https://github.com/tumble1999/native-models/raw/master/native-model.js
+// @match        https://boxcritters.com/play/
+// @match        https://boxcritters.com/play/?*
+// @match        https://boxcritters.com/play/#*
+// @match        https://boxcritters.com/play/index.html
+// @match        https://boxcritters.com/play/index.html?*
+// @match        https://boxcritters.com/play/index.html#*
 // @grant        none
+// @run-at       document-start
 // ==/UserScript==
 
 (function() {
-    'use strict';
+	'use strict';
+	console.log(BCModUtils)
+	console.log(BSModal);
+
+	var mod = BCModUtils.InitialiseMod({
+		name:"Test",
+		abriv:"T",
+		author:"A Human"
+	})
+
+	mod.log("Hello World")
+	mod.log(BCModUtils.camelize("Hello World"))
+
+	var model = new BSModal();
+	mod.log(model)
+	model.setContent("Test","Hello World");
+
+	
+	setTimeout(_=>{
+		model.show()
+	},2000)
+
+	setTimeout(_=>{
+		model.hide()
+	},4000)
 })();
