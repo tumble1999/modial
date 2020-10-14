@@ -110,29 +110,25 @@ aria-hidden="false" style="display: block;">
 		}
 
 		show() {
-			if (
-				isModalShowing() &&
-				this.modal.classList.contains("show")
-			) return;
-			var m = this.modal
-			this.modal.style.display = "block";
-			prepareForModal(_ => {
-				m.classList.add("show");
-				m.setAttribute("aria-hidden", "false");
-				setupEvents(this, 1);
-
+			if (isModalShowing() && this.modal.classList.contains("show")) return;
+			var modal = this.modal
+			modal.style.display = "block";
+			prepareForModal().then(_ => {
+				modal.classList.add("show");
+				modal.setAttribute("aria-hidden", "false");
+				setupEvents(modal, 1);
 			});
 		}
 
 		hide() {
 			if (!isModalShowing()) return;
 			cleanModalPreperarions();
-			this.modal.classList.remove("show");
-			this.modal.setAttribute("aria-hidden", "true");
-			var m = this.modal
+			var modal = this.modal
+			modal.classList.remove("show");
+			modal.setAttribute("aria-hidden", "true");
 			setupEvents(this);
-			onTransition(this.modal).then(_=>{
-				m.style.display = "";
+			onTransition(this.modal).then(_ => {
+				modal.style.display = "";
 			})
 		}
 
