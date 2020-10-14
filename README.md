@@ -1,27 +1,27 @@
-# Native Bootstrap Model
+# Native Bootstrap Modal
 
 ```javascript
-// @require      https://github.com/tumble1999/native-models/raw/master/native-model.js
+// @require      https://github.com/tumble1999/native-modals/raw/master/native-modal.js
 ```
 
 ```javascript
-var model = new BSModal();
+var modal = new BSModal();
 
 // or
-model.setContent("Body");
+modal.setContent("Body");
 // or
-model.setContent("Header","Body","Footer");
+modal.setContent("Header","Body","Footer");
 //or
-model.setContent({
+modal.setContent({
 header:"Header",
 body:"Body",
 footer:"Footer"
 });
 
 // or you can get the nodes to do things like append children or something
-model.getHeaderNode()
-model.getBodyNode()
-model.getFooterNode()
+modal.getHeaderNode()
+modal.getBodyNode()
+modal.getFooterNode()
 
-model.show()
-model.hide() 
+modal.show()
+modal.hide() 
