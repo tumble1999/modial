@@ -50,7 +50,7 @@ var BSModal = (function () {
 	}
 
 	function onTransition(element) {
-		return await new Promise((res, rej) => {
+		return new Promise((res, rej) => {
 			if (element.classList.contains("fade")) {
 				element.addEventListener("transitionend", _ => {
 					res()
