@@ -92,7 +92,6 @@ aria-hidden="false" style="display: block;">
 			this.modal = modalTemplate.cloneNode(true);
 			if (options.fade) this.modal.classList.add("fade");
 			//this.modal.modal = this;
-			this.isAnimating = false;
 			document.body.insertAdjacentElement("afterbegin", this.modal);
 		}
 
@@ -113,8 +112,7 @@ aria-hidden="false" style="display: block;">
 		show() {
 			if (
 				isModalShowing() &&
-				this.modal.classList.contains("show") &&
-				this.isAnimating
+				this.modal.classList.contains("show")
 			) return;
 			var m = this.modal
 			this.modal.style.display = "block";
@@ -159,7 +157,7 @@ aria-hidden="false" style="display: block;">
 		}
 
 		handleKey(e) {
-			if (!this.isAnimating && e.key == "Escape" && this.showing()) {
+			if (e.key == "Escape" && this.showing()) {
 				this.hide();
 			}
 		}
