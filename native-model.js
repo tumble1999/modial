@@ -30,7 +30,7 @@ var BSModal = (function () {
 	const backdrop = document.createElement("div");
 	backdrop.classList.add("modal-backdrop", "fade", "show");
 	backdrop.addEventListener("click",()=>{
-
+		showingModal.hide();
 	})
 
 	let modalTemplate = document.createElement("div");
@@ -48,7 +48,7 @@ var BSModal = (function () {
 		</div>`;
 
 	function isModalShowing() {
-		document.body.classList.contains("modal-open")&&isModalShowing
+		return document.body.classList.contains("modal-open")&&showingModal
 	}
 	function getModalContentContainer(modal, part) {
 		return modal.querySelector(".modal-" + part)
