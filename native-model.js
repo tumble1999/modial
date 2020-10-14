@@ -26,7 +26,7 @@
 
 var BSModal = (function () {
 	"use strict";
-	var showingModel;
+	var showingModal;
 	const backdrop = document.createElement("div");
 	backdrop.classList.add("modal-backdrop", "fade", "show");
 	backdrop.addEventListener("click",()=>{
@@ -47,20 +47,20 @@ var BSModal = (function () {
 			</div>
 		</div>`;
 
-	function isModelShowing() {
-		document.body.classList.contains("model-open")&&isModelShowing
+	function isModalShowing() {
+		document.body.classList.contains("modal-open")&&isModalShowing
 	}
 	function getModalContentContainer(modal, part) {
 		return modal.querySelector(".modal-" + part)
 	}
 
-	function prepareForModel() {
-		document.body.classList.add("model-open");
+	function prepareForModal() {
+		document.body.classList.add("modal-open");
 		document.body.appendChild(backdrop);
 	}
 
-	function cleanModelPreperarions() {
-		document.body.classList.remove("model-open");
+	function cleanModalPreperarions() {
+		document.body.classList.remove("modal-open");
 		document.body.removeChild(backdrop);
 	}
 
@@ -84,21 +84,21 @@ aria-hidden="false" style="display: block;">
 		}
 
 		show() {
-			if(isModelShowing()) return;
-			prepareForModel();
-			this.model.classList.add("show")
+			if(isModalShowing()) return;
+			prepareForModal();
+			this.modal.classList.add("show")
 			this.modal.setAttribute("aria-hidden","false");
 			this.modal.style.display = "block";
-			showingModel = this;
+			showingModal = this;
 		}
 
 		hide() {
-			if(!isModelShowing()) return;
-			cleanModelPreperarions();
-			this.model.classList.remove("show")
+			if(!isModalShowing()) return;
+			cleanModalPreperarions();
+			this.modal.classList.remove("show")
 			this.modal.setAttribute("aria-hidden","true");
 			delete this.modal.style.display;
-			showingModel = undefined;
+			showingModal = undefined;
 		}
 	}
 
