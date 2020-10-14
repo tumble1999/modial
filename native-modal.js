@@ -27,7 +27,7 @@
 var BSModal = (function () {
 	"use strict";
 	const backdrop = document.createElement("div");
-	backdrop.classList.add("modal-backdrop", "fade", "show");
+	backdrop.classList.add("modal-backdrop", "fade");
 
 	let modalTemplate = document.createElement("div");
 	modalTemplate.classList.add("modal", "fade");
@@ -49,14 +49,26 @@ var BSModal = (function () {
 		return modal.querySelector(".modal-" + part);
 	}
 
-	function prepareForModal() {
+	function prepareForModal(cb) {
 		document.body.classList.add("modal-open");
 		document.body.appendChild(backdrop);
+		backdrop.classList.add("show")
+		backdrop.addEventListener("transitionend",()=>{
+			cb()
+		})
+
 	}
 
 	function cleanModalPreperarions() {
 		document.body.classList.remove("modal-open");
-		document.body.removeChild(backdrop);
+		if(backdrop.classList.contains("fade")) {
+			backdrop.addEventListener("transitionend",()=>{
+				document.body.removeChild(backdrop);
+			})
+			backdrop.classList.remove("show")
+		} else {
+			document.body.removeChild(backdrop);
+		}
 	}
 
 	function setupEvents(modal, action) {
@@ -98,12 +110,14 @@ aria-hidden="false" style="display: block;">
 				isModalShowing() &&
 				this.modal.classList.contains("show") &&
 				this.isAnimating
-			)
-				return;
-			prepareForModal();
-			this.modal.classList.add("show");
-			this.modal.setAttribute("aria-hidden", "false");
+			)return;
+			var m = this.modal
 			this.modal.style.display = "block";
+			prepareForModal(_=>{
+				m.classList.add("show");
+				m.setAttribute("aria-hidden", "false");
+
+			});
 			setupEvents(this, 1);
 		}
 
