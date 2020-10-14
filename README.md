@@ -6,6 +6,7 @@
 
 ```javascript
 var model = new BSModal();
-model.setContent("Test","Hello World");
+model.setContent("Header","Content","Footer");
 model.show()
+model.hide()
 ```
