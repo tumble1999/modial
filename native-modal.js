@@ -75,9 +75,9 @@ var BSModal = (function () {
 		backdrop.classList.remove("show")
 	}
 
-	function setupEvents(element, action) {
+	function setupEvents(modal, action) {
 		var action = action ? "addEventListener" : "removeEventListener";
-		element[action]("click", element.modal.handleClick.bind(element.modal));
+		modal.modal[action]("click", modal.handleClick.bind(modal));
 	}
 
 	/*
