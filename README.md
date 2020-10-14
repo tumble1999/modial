@@ -18,6 +18,10 @@ body:"Body",
 footer:"Footer"
 });
 
+// or you can get the nodes to do things like append children or something
+modal.getHeaderNode()
+modal.getBodyNode()
+modal.getFooterNode()
+
 modal.show()
-modal.hide()
-```
+modal.
