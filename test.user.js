@@ -8,7 +8,7 @@
 // @require      https://github.com/SArpnt/EventHandler/raw/master/script.js
 // @require      https://github.com/SArpnt/cardboard/raw/master/script.user.js
 // @require      https://github.com/tumble1999/mod-utils/raw/master/mod-utils.js
-// @require      https://github.com/tumble1999/native-models/raw/master/native-model.js
+// @require      https://github.com/tumble1999/native-modals/raw/master/native-modal.js
 // @match        https://boxcritters.com/play/
 // @match        https://boxcritters.com/play/?*
 // @match        https://boxcritters.com/play/#*
@@ -33,16 +33,16 @@
 	mod.log("Hello World")
 	mod.log(BCModUtils.camelize("Hello World"))
 
-	var model = new BSModal();
-	mod.log(model)
-	model.setContent("Test","Hello World");
+	var modal = new BSModal();
+	mod.log(modal)
+	modal.setContent("Test","Hello World");
 
 	
 	setTimeout(_=>{
-		model.show()
+		modal.show()
 	},2000)
 
 	/*setTimeout(_=>{
-		model.hide()
+		modal.hide()
 	},4000)*/
 })();

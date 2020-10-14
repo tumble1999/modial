@@ -1,12 +1,12 @@
-# Native Bootstrap Model
+# Native Bootstrap Modal
 
 ```javascript
-// @require      https://github.com/tumble1999/native-models/raw/master/native-model.js
+// @require      https://github.com/tumble1999/native-modals/raw/master/native-modal.js
 ```
 
 ```javascript
-var model = new BSModal();
-model.setContent("Header","Content","Footer");
-model.show()
-model.hide()
+var modal = new BSModal();
+modal.setContent("Header","Content","Footer");
+modal.show()
+modal.hide()
 ```
