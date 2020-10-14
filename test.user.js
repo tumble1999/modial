@@ -42,7 +42,7 @@
 		model.show()
 	},2000)
 
-	setTimeout(_=>{
+	/*setTimeout(_=>{
 		model.hide()
-	},4000)
+	},4000)*/
 })();

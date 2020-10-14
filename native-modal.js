@@ -26,12 +26,8 @@
 
 var BSModal = (function () {
 	"use strict";
-	var showingModal;
 	const backdrop = document.createElement("div");
 	backdrop.classList.add("modal-backdrop", "fade", "show");
-	backdrop.addEventListener("click",()=>{
-		showingModal.hide();
-	})
 
 	let modalTemplate = document.createElement("div");
 	modalTemplate.classList.add("modal", "fade");
@@ -48,9 +44,9 @@ var BSModal = (function () {
 		</div>`;
 
 	function isModalShowing() {
-		return document.body.classList.contains("modal-open")&&showingModal
+		return document.body.classList.contains("modal-open")
 	}
-	function getModalContentContainer(modal, part) {
+	function getModalNode(modal, part) {
 		return modal.querySelector(".modal-" + part)
 	}
 
@@ -79,13 +75,13 @@ aria-hidden="false" style="display: block;">
 		setContent(options = { header, body, footer }) {
 			if (typeof (options) === "string") options = { header: "", body: options, footer: "" };
 			let { header, body, footer } = options;
-			getModalContentContainer(this.modal, "header").innerHTML = header;
-			getModalContentContainer(this.modal, "body").innerHTML = body;
-			getModalContentContainer(this.modal, "footer").innerHTML = footer;
+			getModalNode(this.modal, "header").innerHTML = header;
+			getModalNode(this.modal, "body").innerHTML = body;
+			getModalNode(this.modal, "footer").innerHTML = footer;
 		}
 
 		show() {
-			if(isModalShowing()) return;
+			if(isModalShowing()&&this.modal.classList.contains("show")&&this.isAnimating) return;
 			prepareForModal();
 			this.modal.classList.add("show")
 			this.modal.setAttribute("aria-hidden","false");
@@ -101,6 +97,7 @@ aria-hidden="false" style="display: block;">
 			delete this.modal.style.display;
 			showingModal = undefined;
 		}
+		
 	}
 
 	return BSModal;	
