@@ -49,26 +49,31 @@ var BSModal = (function () {
 		return modal.querySelector(".modal-" + part);
 	}
 
-	function prepareForModal(cb) {
+	function onTransition(element) {
+		return await new Promise((res, rej) => {
+			if (element.classList.contains("fade")) {
+				element.addEventListener("transitionend", _ => {
+					res()
+				})
+			} else {
+				res();
+			}
+		});
+	}
+
+	async function prepareForModal() {
 		document.body.classList.add("modal-open");
 		document.body.appendChild(backdrop);
 		backdrop.classList.add("show")
-		backdrop.addEventListener("transitionend",()=>{
-			cb()
-		})
-
+		return await onTransition(backdrop);
 	}
 
 	function cleanModalPreperarions() {
 		document.body.classList.remove("modal-open");
-		if(backdrop.classList.contains("fade")) {
-			backdrop.addEventListener("transitionend",()=>{
-				document.body.removeChild(backdrop);
-			})
-			backdrop.classList.remove("show")
-		} else {
+		onTransition(backdrop).then(_ => {
 			document.body.removeChild(backdrop);
-		}
+		})
+		backdrop.classList.remove("show")
 	}
 
 	function setupEvents(modal, action) {
@@ -110,15 +115,15 @@ aria-hidden="false" style="display: block;">
 				isModalShowing() &&
 				this.modal.classList.contains("show") &&
 				this.isAnimating
-			)return;
+			) return;
 			var m = this.modal
 			this.modal.style.display = "block";
-			prepareForModal(_=>{
+			prepareForModal(_ => {
 				m.classList.add("show");
 				m.setAttribute("aria-hidden", "false");
+				setupEvents(this, 1);
 
 			});
-			setupEvents(this, 1);
 		}
 
 		hide() {
@@ -127,11 +132,10 @@ aria-hidden="false" style="display: block;">
 			this.modal.classList.remove("show");
 			this.modal.setAttribute("aria-hidden", "true");
 			var m = this.modal
-			this.modal.addEventListener("transitionend",()=>{
-				m.style.display = "";
-
-			})
 			setupEvents(this);
+			onTransition(this.modal).then(_=>{
+				m.style.display = "";
+			})
 		}
 
 		showing() {
