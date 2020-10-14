@@ -112,7 +112,11 @@ aria-hidden="false" style="display: block;">
 			cleanModalPreperarions();
 			this.modal.classList.remove("show");
 			this.modal.setAttribute("aria-hidden", "true");
-			this.modal.style.display = "";
+			var m = this.modal
+			this.modal.addEventListener("transitionend",()=>{
+				m.style.display = "";
+
+			})
 			setupEvents(this);
 		}
 
