@@ -138,7 +138,7 @@ aria-hidden="false" style="display: block;">
 		}
 
 		hide() {
-			if (!isModalShowing()||!this.ableToClose) return;
+			if (!isModalShowing()||!this.options.ableToClose) return;
 			cleanModalPreperarions();
 			var element = this.element
 			element.classList.remove("show");
