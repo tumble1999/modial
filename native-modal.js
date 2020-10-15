@@ -23,7 +23,6 @@
 	<div class="modal-backdrop fade show"></div>
 */
 
-
 var BSModal = (function () {
 	"use strict";
 	const backdrop = document.createElement("div");
@@ -31,6 +30,7 @@ var BSModal = (function () {
 
 	let modalTemplate = document.createElement("div");
 	modalTemplate.classList.add("modal", "fade");
+	setTimeout(()=>modalTemplate.classList.remove("show"),0);
 	modalTemplate.setAttribute("tabindex", "-1");
 	modalTemplate.setAttribute("role", "dialogue");
 	modalTemplate.setAttribute("aria-hidden", "true");
@@ -52,9 +52,7 @@ var BSModal = (function () {
 	function onTransition(element) {
 		return new Promise((res, rej) => {
 			if (element.classList.contains("fade")) {
-				element.addEventListener("transitionend", _ => {
-					res()
-				})
+				element.addEventListener("transitionend",res)
 			} else {
 				res();
 			}
@@ -64,7 +62,7 @@ var BSModal = (function () {
 	function prepareForModal() {
 		document.body.classList.add("modal-open");
 		document.body.appendChild(backdrop);
-		backdrop.classList.add("show")
+		setTimeout(()=>backdrop.classList.add("show"),0)
 	}
 
 	function cleanModalPreperarions() {
@@ -77,7 +75,7 @@ var BSModal = (function () {
 
 	function setupEvents(modal, action) {
 		var action = action ? "addEventListener" : "removeEventListener";
-		modal.modal[action]("click", modal.handleClick.bind(modal));
+		modal.element[action]("click", modal.handleClick.bind(modal));
 	}
 
 	function onDocumentLoaded() {
@@ -85,7 +83,7 @@ var BSModal = (function () {
 			if(document.readyState=="complete") {
 				res();
 			} else {
-				document.addEventListener("load",res)
+				window.addEventListener("load",res)
 			}
 		})
 	}
@@ -97,15 +95,15 @@ aria-hidden="false" style="display: block;">
 */
 	class BSModal extends EventTarget
 	{
-		constructor(options = { backdrop: false, fade: true }) {
+		constructor(options = { backdrop: false, fade: true,ableToClose:true }) {
 			super();
 			this.options = options;
-			this.modal = modalTemplate.cloneNode(true);
-			if (options.fade) this.modal.classList.add("fade");
-			this.modal.modal = this;
+			this.element = modalTemplate.cloneNode(true);
+			if (options.fade) this.element.classList.add("fade");
+			this.element.modal = this;
 			this.created = false;
 			onDocumentLoaded().then(_=>{
-				document.body.insertAdjacentElement("afterbegin", this.modal);
+				document.body.insertAdjacentElement("afterbegin", this.element);
 				this.created = true;
 				var createdEvent = new CustomEvent("created");
 				this.dispatchEvent(createdEvent);
@@ -121,40 +119,47 @@ aria-hidden="false" style="display: block;">
 					{}
 				);
 			let { header, body, footer } = options;
-			getModalNode(this.modal, "header").innerHTML = header;
-			getModalNode(this.modal, "body").innerHTML = body;
-			getModalNode(this.modal, "footer").innerHTML = footer;
+			getModalNode(this.element, "header").innerHTML = header;
+			getModalNode(this.element, "body").innerHTML = body;
+			getModalNode(this.element, "footer").innerHTML = footer;
 		}
 
 		show() {
-			if(!this.created) {
-				this.addEventListener("created",this.show);
-			}
-			if (isModalShowing() && this.modal.classList.contains("show")) return;
-			var modal = this.modal
+			if(!this.created) return this.addEventListener("created",this.show);
+			if (isModalShowing() && this.element.classList.contains("show")) return;
+			var element = this.element
 			prepareForModal()
-			modal.style.display = "block";
+			element.style.display = "block";
 			onTransition(backdrop).then(_ => {
-				modal.classList.add("show");
-				modal.setAttribute("aria-hidden", "false");
+				element.classList.add("show");
+				element.setAttribute("aria-hidden", "false");
 				setupEvents(this, 1);
 			});
 		}
 
 		hide() {
-			if (!isModalShowing()) return;
+			if (!isModalShowing()||!this.ableToClose) return;
 			cleanModalPreperarions();
-			var modal = this.modal
-			modal.classList.remove("show");
-			modal.setAttribute("aria-hidden", "true");
+			var element = this.element
+			element.classList.remove("show");
+			element.setAttribute("aria-hidden", "true");
 			setupEvents(this);
-			onTransition(this.modal).then(_ => {
-				modal.style.display = "";
+			onTransition(this.element).then(_ => {
+				element.style.display = "";
 			})
 		}
 
+		enableClosing() {
+			this.options.ableToClose = true;
+			this.element.querySelector(".close").disabled = false;
+		}
+		disableClosing() {
+			this.options.ableToClose = false;
+			this.element.querySelector(".close").disabled = true;
+		}
+
 		showing() {
-			return this.modal.classList.contains("show");
+			return this.element.classList.contains("show");
 		}
 
 		toggle() {
@@ -162,15 +167,15 @@ aria-hidden="false" style="display: block;">
 		}
 
 		getHeaderNode() {
-			return getModalNode(this.modal, "header");
+			return getModalNode(this.element, "header");
 		}
 
 		getBodyNode() {
-			return getModalNode(this.modal, "body");
+			return getModalNode(this.element, "body");
 		}
 
 		getFooterNode() {
-			return getModalNode(this.modal, "footer");
+			return getModalNode(this.element, "footer");
 		}
 
 		handleKey(e) {
@@ -183,7 +188,7 @@ aria-hidden="false" style="display: block;">
 			var clickTarget = e.target;
 			var data = clickTarget.getAttribute("data-dismiss") === "modal";
 			var parent = clickTarget.closest('[data-dismiss="modal"]');
-			if (this.showing() && (parent || data || clickTarget == this.modal)) {
+			if (this.showing() && (parent || data || clickTarget == this.element)) {
 				this.hide();
 				e.preventDefault();
 			}

@@ -36,6 +36,10 @@
 	var modal = new BSModal();
 	mod.log(modal)
 	modal.setContent("Test","Hello World");
+	
+	modal.addEventListener("Created",()=>{
+		console.log("Modal created")
+	})
 
 	
 	setTimeout(_=>{
