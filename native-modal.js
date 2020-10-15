@@ -95,7 +95,8 @@ body.modal-open
 class="show" 
 aria-hidden="false" style="display: block;">
 */
-	class BSModal extends EventTarget {
+	class BSModal //extends EventTarget
+	{
 		constructor(options = { backdrop: false, fade: true }) {
 			super();
 			this.options = options;
@@ -106,8 +107,8 @@ aria-hidden="false" style="display: block;">
 			onDocumentLoaded().then(_=>{
 				document.body.insertAdjacentElement("afterbegin", this.modal);
 				this.created = true;
-				var createdEvent = new CustomEvent("created");
-				this.dispatchEvent(createdEvent);
+				//var createdEvent = new CustomEvent("created");
+				//this.dispatchEvent(createdEvent);
 			})
 		}
 
@@ -126,9 +127,9 @@ aria-hidden="false" style="display: block;">
 		}
 
 		show() {
-			if(!this.created) {
+			/*if(!this.created) {
 				this.addEventListener("created",this.show);
-			}
+			}*/
 			if (isModalShowing() && this.modal.classList.contains("show")) return;
 			var modal = this.modal
 			prepareForModal()
