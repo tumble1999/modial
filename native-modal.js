@@ -80,6 +80,16 @@ var BSModal = (function () {
 		modal.modal[action]("click", modal.handleClick.bind(modal));
 	}
 
+	function onDocumentLoaded() {
+		return new Promise((res,rej)=>{
+			if(document.readyState=="complete") {
+				res();
+			} else {
+				document.addEventListener("load",res)
+			}
+		})
+	}
+
 	/*
 body.modal-open
 class="show" 
@@ -91,7 +101,9 @@ aria-hidden="false" style="display: block;">
 			this.modal = modalTemplate.cloneNode(true);
 			if (options.fade) this.modal.classList.add("fade");
 			this.modal.modal = this;
-			document.body.insertAdjacentElement("afterbegin", this.modal);
+			onDocumentLoaded().then(_=>{
+				document.body.insertAdjacentElement("afterbegin", this.modal);
+			})
 		}
 
 		setContent(options = { header, body, footer }) {
