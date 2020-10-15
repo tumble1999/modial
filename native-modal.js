@@ -97,6 +97,7 @@ aria-hidden="false" style="display: block;">
 */
 	class BSModal extends EventTarget {
 		constructor(options = { backdrop: false, fade: true }) {
+			super();
 			this.options = options;
 			this.modal = modalTemplate.cloneNode(true);
 			if (options.fade) this.modal.classList.add("fade");
