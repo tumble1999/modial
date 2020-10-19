@@ -1,11 +1,11 @@
-# Native Bootstrap Modal
+# PopperJS
 
 ```javascript
-// @require      https://github.com/tumble1999/native-modals/raw/master/native-modal.js
+// @require      https://github.com/tumble1999/popper/raw/master/popper.js
 ```
 
 ```javascript
-var modal = new BSModal();
+var modal = new Popper();
 
 // or
 modal.setContent("Body");

@@ -33,7 +33,7 @@
 	mod.log("Hello World")
 	mod.log(BCModUtils.camelize("Hello World"))
 
-	var modal = new BSModal();
+	var modal = new Popper();
 	mod.log(modal)
 	modal.setContent("Test","Hello World");
 	

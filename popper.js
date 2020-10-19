@@ -1,29 +1,4 @@
-/*
-<div id="BCM_modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-			</div>
-		</div>
-	</div>
-
-*/
-
-
-/*
-<div id="BCM_modal" class="modal fade show" tabindex="-1" role="dialog" aria-hidden="false" style="display: block;">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header"></div>
-				<div class="modal-body"></div>
-				<div class="modal-footer"></div>
-			<div>
-		</div>
-	</div>
-
-	<div class="modal-backdrop fade show"></div>
-*/
-
-var BSModal = (function () {
+var Popper = (function () {
 	"use strict";
 	const backdrop = document.createElement("div");
 	backdrop.classList.add("modal-backdrop", "fade");
@@ -93,7 +68,7 @@ body.modal-open
 class="show" 
 aria-hidden="false" style="display: block;">
 */
-	class BSModal extends EventTarget
+	class Popper extends EventTarget
 	{
 		constructor(options = { backdrop: false, fade: true,ableToClose:true }) {
 			super();
@@ -130,11 +105,11 @@ aria-hidden="false" style="display: block;">
 			var element = this.element
 			prepareForModal()
 			element.style.display = "block";
-			onTransition(backdrop).then(_ => {
+			//onTransition(backdrop).then(_ => {
 				element.classList.add("show");
 				element.setAttribute("aria-hidden", "false");
 				setupEvents(this, 1);
-			});
+			//});
 		}
 
 		hide() {
@@ -195,7 +170,7 @@ aria-hidden="false" style="display: block;">
 		}
 	}
 
-	BSModal.closeButton = '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+	Popper.closeButton = '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
-	return BSModal;
+	return Popper;
 })();
