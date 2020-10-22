@@ -137,7 +137,7 @@ aria-hidden="false" style="display: block;">
 		}
 
 		showing() {
-			return this.element.classList.contains("show");
+			return !this.element || this.element.classList.contains("show");
 		}
 
 		toggle() {
