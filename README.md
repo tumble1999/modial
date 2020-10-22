@@ -1,11 +1,11 @@
-# PopperJS
+# ModialJS
 
 ```javascript
-// @require      https://github.com/tumble1999/popper/raw/master/popper.js
+// @require      https://github.com/tumble1999/modial/raw/master/modial.js
 ```
 
 ```javascript
-var modal = new Popper();
+var modal = new Modial();
 
 // or
 modal.setContent("Body");

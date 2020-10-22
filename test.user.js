@@ -19,32 +19,32 @@
 // @run-at       document-start
 // ==/UserScript==
 
-(function() {
+(function () {
 	'use strict';
-	console.log(BCModUtils)
+	console.log(BCModUtils);
 	console.log(BSModal);
 
 	var mod = BCModUtils.InitialiseMod({
-		name:"Test",
-		abriv:"T",
-		author:"A Human"
-	})
+		name: "Test",
+		abriv: "T",
+		author: "A Human"
+	});
 
-	mod.log("Hello World")
-	mod.log(BCModUtils.camelize("Hello World"))
+	mod.log("Hello World");
+	mod.log(BCModUtils.camelize("Hello World"));
 
-	var modal = new Popper();
-	mod.log(modal)
-	modal.setContent("Test","Hello World");
-	
-	modal.addEventListener("Created",()=>{
-		console.log("Modal created")
-	})
+	var modal = new Modial();
+	mod.log(modal);
+	modal.setContent("Test", "Hello World");
 
-	
-	setTimeout(_=>{
-		modal.show()
-	},2000)
+	modal.addEventListener("Created", () => {
+		console.log("Modal created");
+	});
+
+
+	setTimeout(_ => {
+		modal.show();
+	}, 2000);
 
 	/*setTimeout(_=>{
 		modal.hide()

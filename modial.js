@@ -1,4 +1,4 @@
-var Popper = (function () {
+var Modial = (function () {
 	"use strict";
 	const backdrop = document.createElement("div");
 	backdrop.classList.add("modal-backdrop", "fade");
@@ -68,7 +68,7 @@ body.modal-open
 class="show" 
 aria-hidden="false" style="display: block;">
 */
-	class Popper extends EventTarget {
+	class Modial extends EventTarget {
 		constructor(options = { backdrop: false, fade: true, ableToClose: true }) {
 			super();
 			this.options = options;
@@ -173,7 +173,7 @@ aria-hidden="false" style="display: block;">
 		}
 	}
 
-	Popper.closeButton = '<button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+	Modial.closeButton = '<button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
-	return Popper;
+	return Modial;
 })();
