@@ -11,7 +11,7 @@ var Popper = (function () {
 	modalTemplate.setAttribute("aria-hidden", "true");
 	modalTemplate.innerHTML = `<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header"></div>
+				<div class="modal-header" style="display:block;"></div>
 				<div class="modal-body"></div>
 				<div class="modal-footer"></div>
 			</div>
@@ -96,6 +96,10 @@ aria-hidden="false" style="display: block;">
 			getModalNode(this.element, "header").innerHTML = header;
 			getModalNode(this.element, "body").innerHTML = body;
 			getModalNode(this.element, "footer").innerHTML = footer;
+		}
+
+		setWidth(width) {
+			getModalNode(this.element, "dialog").style["max-width"] = width;
 		}
 
 		show() {
