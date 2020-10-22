@@ -5,7 +5,7 @@ var Popper = (function () {
 
 	let modalTemplate = document.createElement("div");
 	modalTemplate.classList.add("modal", "fade");
-	setTimeout(()=>modalTemplate.classList.remove("show"),0);
+	setTimeout(() => modalTemplate.classList.remove("show"), 0);
 	modalTemplate.setAttribute("tabindex", "-1");
 	modalTemplate.setAttribute("role", "dialogue");
 	modalTemplate.setAttribute("aria-hidden", "true");
@@ -18,7 +18,7 @@ var Popper = (function () {
 		</div>`;
 
 	function isModalShowing() {
-		return document.readyState=="complete"&&document.body.classList.contains("modal-open");
+		return document.readyState == "complete" && document.body.classList.contains("modal-open");
 	}
 	function getModalNode(modal, part) {
 		return modal.querySelector(".modal-" + part);
@@ -27,7 +27,7 @@ var Popper = (function () {
 	function onTransition(element) {
 		return new Promise((res, rej) => {
 			if (element.classList.contains("fade")) {
-				element.addEventListener("transitionend",res)
+				element.addEventListener("transitionend", res);
 			} else {
 				res();
 			}
@@ -37,15 +37,15 @@ var Popper = (function () {
 	function prepareForModal() {
 		document.body.classList.add("modal-open");
 		document.body.appendChild(backdrop);
-		setTimeout(()=>backdrop.classList.add("show"),0)
+		setTimeout(() => backdrop.classList.add("show"), 0);
 	}
 
 	function cleanModalPreperarions() {
 		document.body.classList.remove("modal-open");
 		onTransition(backdrop).then(_ => {
 			document.body.removeChild(backdrop);
-		})
-		backdrop.classList.remove("show")
+		});
+		backdrop.classList.remove("show");
 	}
 
 	function setupEvents(modal, action) {
@@ -54,13 +54,13 @@ var Popper = (function () {
 	}
 
 	function onDocumentLoaded() {
-		return new Promise((res,rej)=>{
-			if(document.readyState=="complete") {
+		return new Promise((res, rej) => {
+			if (document.readyState == "complete") {
 				res();
 			} else {
-				window.addEventListener("load",res)
+				window.addEventListener("load", res);
 			}
-		})
+		});
 	}
 
 	/*
@@ -68,21 +68,20 @@ body.modal-open
 class="show" 
 aria-hidden="false" style="display: block;">
 */
-	class Popper extends EventTarget
-	{
-		constructor(options = { backdrop: false, fade: true,ableToClose:true }) {
+	class Popper extends EventTarget {
+		constructor(options = { backdrop: false, fade: true, ableToClose: true }) {
 			super();
 			this.options = options;
 			this.element = modalTemplate.cloneNode(true);
 			if (options.fade) this.element.classList.add("fade");
 			this.element.modal = this;
 			this.created = false;
-			onDocumentLoaded().then(_=>{
+			onDocumentLoaded().then(_ => {
 				document.body.insertAdjacentElement("afterbegin", this.element);
 				this.created = true;
 				var createdEvent = new CustomEvent("created");
 				this.dispatchEvent(createdEvent);
-			})
+			});
 		}
 
 		setContent(options = { header, body, footer }) {
@@ -100,28 +99,28 @@ aria-hidden="false" style="display: block;">
 		}
 
 		show() {
-			if(!this.created) return this.addEventListener("created",this.show);
+			if (!this.created) return this.addEventListener("created", this.show);
 			if (isModalShowing() && this.element.classList.contains("show")) return;
-			var element = this.element
-			prepareForModal()
+			var element = this.element;
+			prepareForModal();
 			element.style.display = "block";
 			//onTransition(backdrop).then(_ => {
-				element.classList.add("show");
-				element.setAttribute("aria-hidden", "false");
-				setupEvents(this, 1);
+			element.classList.add("show");
+			element.setAttribute("aria-hidden", "false");
+			setupEvents(this, 1);
 			//});
 		}
 
 		hide() {
-			if (!isModalShowing()||!this.options.ableToClose) return;
+			if (!isModalShowing() || !this.options.ableToClose) return;
 			cleanModalPreperarions();
-			var element = this.element
+			var element = this.element;
 			element.classList.remove("show");
 			element.setAttribute("aria-hidden", "true");
 			setupEvents(this);
 			onTransition(this.element).then(_ => {
 				element.style.display = "";
-			})
+			});
 		}
 
 		enableClosing() {
@@ -170,7 +169,7 @@ aria-hidden="false" style="display: block;">
 		}
 	}
 
-	Popper.closeButton = '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+	Popper.closeButton = '<button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
 
 	return Popper;
 })();
