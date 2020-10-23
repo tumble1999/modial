@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         Test
-// @namespace    http://boxcrittersmods.ga
+// @namespace    https://boxcrittersmods.ga/authors/tumblegamer/
+// @supportURL   http://discord.gg/D2ZpRUW
 // @version      0.1
 // @description  Test
 // @author       TumbleGamer
