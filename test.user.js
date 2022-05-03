@@ -22,17 +22,17 @@
 
 (function () {
 	'use strict';
-	console.log(BCModUtils);
-	console.log(BSModal);
+	console.log(TumbleMod);
+	console.log(Modial);
 
-	var mod = BCModUtils.InitialiseMod({
+	var mod = new TumbleMod({
 		name: "Test",
 		abriv: "T",
 		author: "A Human"
 	});
 
 	mod.log("Hello World");
-	mod.log(BCModUtils.camelize("Hello World"));
+	mod.log(TumbleMod.camelize("Hello World"));
 
 	var modal = new Modial();
 	mod.log(modal);

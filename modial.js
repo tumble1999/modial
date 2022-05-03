@@ -11,7 +11,10 @@ var Modial = (function () {
 	modalTemplate.setAttribute("aria-hidden", "true");
 	modalTemplate.innerHTML = `<div class="modal-dialog" role="document">
 			<div class="modal-content">
-				<div class="modal-header" style="display:block;"></div>
+				<div class="modal-header">
+					<h5 class="modal-title"></h5>
+					<button type="button" class="btn-close modal-close" data-dismiss="modal" aria-label="Close"></button>
+				</div>
 				<div class="modal-body"></div>
 				<div class="modal-footer"></div>
 			</div>
@@ -65,7 +68,7 @@ var Modial = (function () {
 
 	/*
 body.modal-open
-class="show" 
+class="show"
 aria-hidden="false" style="display: block;">
 */
 	class Modial extends EventTarget {
@@ -93,7 +96,7 @@ aria-hidden="false" style="display: block;">
 					{}
 				);
 			let { header, body, footer } = options;
-			getModalNode(this.element, "header").innerHTML = header;
+			getModalNode(this.element, "title").innerHTML = header;
 			getModalNode(this.element, "body").innerHTML = body;
 			getModalNode(this.element, "footer").innerHTML = footer;
 		}
@@ -173,7 +176,16 @@ aria-hidden="false" style="display: block;">
 		}
 	}
 
-	Modial.closeButton = '<button type="button" class="close float-right" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+	Modial.closeButton = (() => {
+		let btn = document.createElement("button");
+		btn.type = "button";
+		btn.classList.add("btn-close", "modal-close");
+		btn.dataset.dismiss = "modal";
+		btn.setAttribute("aria-label", "Close");
+		return btn;
+	})();
+
+
 
 	return Modial;
 })();
